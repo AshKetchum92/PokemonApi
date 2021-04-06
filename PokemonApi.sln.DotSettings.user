@@ -1,0 +1,6 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/CodeInspection/Highlighting/AnalysisEnabled/@EntryValue">SOLUTION</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=34acd154_002Dd67d_002D4196_002D8367_002D5ff72b06dd9e/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="IfGivenNameIsInvalid_ShouldReturnHttpNotFound" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Project Location="C:\Users\Italo\source\repos\PokemonApi\PokemonApiTest" Presentation="&amp;lt;PokemonApiTest&amp;gt;" /&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=mewtwo/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>

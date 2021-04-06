@@ -1,11 +1,12 @@
+using System;
 using System.Linq;
-using System.Net;
 using FluentAssertions;
 using NUnit.Framework;
-using PokemonApi.PokeApi;
+using PokemonApi.Data.PokeApi;
 
-namespace PokemonApiTest.PokeApi
+namespace PokemonApiTest.Data.PokeApi
 {
+    [TestFixture]
     public class ClientTest
     {
         private const string ExpectedPikachuFlavorText = "When several of\nthese POKéMON\ngather, their\u000celectricity could\nbuild and cause\nlightning storms.";
@@ -23,9 +24,9 @@ namespace PokemonApiTest.PokeApi
         {
             const string invalidPokemonName = "NotAValidPokemonName";
 
-            ((HttpWebResponse)this.Invoking(t => _pokeApiClient.GetPokemonSpecies(invalidPokemonName))
-                .Should().ThrowExactly<WebException>()
-                .And.Response).StatusCode.Should().Be(HttpStatusCode.NotFound);
+            this.Invoking(t => _pokeApiClient.GetPokemonSpecies(invalidPokemonName))
+                .Should().ThrowExactly<ArgumentOutOfRangeException>()
+                .And.ParamName.Should().Be("name");
         }
 
         [Test]

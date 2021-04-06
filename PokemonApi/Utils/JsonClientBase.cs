@@ -3,7 +3,7 @@ using System.IO;
 using System.Net;
 using System.Text.Json;
 
-namespace PokemonApi
+namespace PokemonApi.Utils
 {
     public abstract class JsonClientBase
     { 
