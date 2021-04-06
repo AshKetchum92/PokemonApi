@@ -17,11 +17,29 @@ namespace PokemonApi.Services
 
         [HttpGet]
         [Route("{name}")]
-        public ActionResult<Pokemon> Get(string name)
+        public ActionResult<Pokemon> GetPokemon(string name)
         {
             try
             {
                 return ToPokemon(_pokemonRepository.Get(name));
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return NotFound();
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
+        }
+
+        [HttpGet]
+        [Route("translated/{name}")]
+        public ActionResult<Pokemon> GetPokemonTranslated(string name)
+        {
+            try
+            {
+                return ToTranslatedPokemon(_pokemonRepository.Get(name));
             }
             catch (ArgumentOutOfRangeException)
             {
@@ -44,6 +62,21 @@ namespace PokemonApi.Services
                 Habitat = pokemon.Habitat,
                 Description = pokemon.Description
             };
+        }
+
+        private static Pokemon ToTranslatedPokemon(IPokemon pokemon)
+        {
+            var result = ToPokemon(pokemon);
+            try
+            {
+                result.Description = pokemon.TranslatedDescription;
+            }
+            catch
+            {
+                // ignore
+            }
+
+            return result;
         }
 
         #endregion
