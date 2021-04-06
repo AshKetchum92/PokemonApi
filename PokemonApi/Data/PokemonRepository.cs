@@ -36,7 +36,7 @@ namespace PokemonApi.Data
 
         private static IPokemon ToPokemon(PokemonInfo pokemonSpecies)
         {
-            return new Pokemon
+            return new Pokemon(new FunTranslationsApi.Client())
             {
                 Name = pokemonSpecies.Name,
                 IsLegendary = pokemonSpecies.IsLegendary,

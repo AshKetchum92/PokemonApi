@@ -7,7 +7,6 @@ using NUnit.Framework;
 using PokemonApi.Data;
 using PokemonApi.Services;
 using Pokemon = PokemonApi.Services.Pokemon;
-using PokemonDataLayer = PokemonApi.Data.Pokemon;
 
 namespace PokemonApiTest.Services
 {
