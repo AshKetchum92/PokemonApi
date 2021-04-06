@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PokemonApi.Data;
+using PokemonApi.Data.PokeApi;
 
 namespace PokemonApi
 {
@@ -18,6 +20,9 @@ namespace PokemonApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddScoped<IPokemonRepository, PokemonRepository>();
+            services.AddScoped<IClient, Client>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -27,7 +32,6 @@ namespace PokemonApi
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
 
