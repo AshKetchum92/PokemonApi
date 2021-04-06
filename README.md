@@ -15,7 +15,7 @@
 
 * Clone the repository and go to the solution folder
 
-* Copile the docker image
+* Build the docker image
     
       docker build -f PokemonApi\Dockerfile -t pokemonapi .
       
