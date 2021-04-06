@@ -1,5 +1,6 @@
 using System;
 using System.Net;
+using Bogus;
 using FakeItEasy;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
@@ -28,7 +29,7 @@ namespace PokemonApiTest.Services
         [Test]
         public void IfRepositoryThrowsArgumentOutOfRangeException_GetPokemon_ShouldReturnHttpNotFound()
         {
-            const string pokemonName = "pikachu";
+            var pokemonName = new Faker().Lorem.Word();
             A.CallTo(() => _pokemonRepository.Get(A<string>._)).Throws<ArgumentOutOfRangeException>();
 
             var actionResult = _pokemonService.GetPokemon(pokemonName);
@@ -40,7 +41,7 @@ namespace PokemonApiTest.Services
         [Test]
         public void IfRepositoryThrowsAnUnexpectedException_GetPokemon_ShouldReturnHttpInternalServerError()
         {
-            const string pokemonName = "pikachu";
+            var pokemonName = new Faker().Lorem.Word();
             A.CallTo(() => _pokemonRepository.Get(A<string>._)).Throws<Exception>();
 
             var actionResult = _pokemonService.GetPokemon(pokemonName);
@@ -52,7 +53,7 @@ namespace PokemonApiTest.Services
         [Test]
         public void GetPokemon_ShouldReturnThePokemonInfo()
         {
-            const string pokemonName = "pikachu";
+            var pokemonName = new Faker().Lorem.Word();
             var expectedPokemon = APokemon();
             A.CallTo(() => _pokemonRepository.Get(pokemonName)).Returns(expectedPokemon);
 
@@ -68,7 +69,7 @@ namespace PokemonApiTest.Services
         [Test]
         public void IfRepositoryThrowsArgumentOutOfRangeException_GetPokemonTranslated_ShouldReturnHttpNotFound()
         {
-            const string pokemonName = "pikachu";
+            var pokemonName = new Faker().Lorem.Word();
             A.CallTo(() => _pokemonRepository.Get(A<string>._)).Throws<ArgumentOutOfRangeException>();
 
             var actionResult = _pokemonService.GetPokemonTranslated(pokemonName);
@@ -80,7 +81,7 @@ namespace PokemonApiTest.Services
         [Test]
         public void IfRepositoryThrowsAnUnexpectedException_GetPokemonTranslated_ShouldReturnHttpInternalServerError()
         {
-            const string pokemonName = "pikachu";
+            var pokemonName = new Faker().Lorem.Word();
             A.CallTo(() => _pokemonRepository.Get(A<string>._)).Throws<Exception>();
 
             var actionResult = _pokemonService.GetPokemonTranslated(pokemonName);
@@ -92,7 +93,7 @@ namespace PokemonApiTest.Services
         [Test]
         public void IfRepositoryThrowsAnUnexpectedExceptionWhileGettingTranslatedDescription_GetPokemonTranslated_ShouldReturnThePokemonInfoWithTheStandardDescription()
         {
-            const string pokemonName = "pikachu";
+            var pokemonName = new Faker().Lorem.Word();
             var expectedPokemon = APokemon();
             A.CallTo(() => _pokemonRepository.Get(pokemonName)).Returns(expectedPokemon);
             A.CallTo(() => expectedPokemon.TranslatedDescription).Throws<Exception>();
@@ -105,8 +106,8 @@ namespace PokemonApiTest.Services
         [Test]
         public void IfNoExceptionOccurs_GetPokemonTranslated_ShouldReturnThePokemonInfoWithTheTranslatedDescription()
         {
-            const string pokemonName = "pikachu";
-            const string expectedDescription = "a translated description";
+            var pokemonName = new Faker().Lorem.Word();
+            var expectedDescription = new Faker().Lorem.Sentence();
             var expectedPokemon = APokemon();
             A.CallTo(() => _pokemonRepository.Get(pokemonName)).Returns(expectedPokemon);
             A.CallTo(() => expectedPokemon.TranslatedDescription).Returns(expectedDescription);
@@ -124,10 +125,10 @@ namespace PokemonApiTest.Services
         private static IPokemon APokemon()
         {
             var pokemon = A.Fake<IPokemon>();
-            A.CallTo(() => pokemon.Name).Returns("michu");
-            A.CallTo(() => pokemon.Description).Returns("A description");
-            A.CallTo(() => pokemon.Habitat).Returns("An habitat");
-            A.CallTo(() => pokemon.IsLegendary).Returns(true);
+            A.CallTo(() => pokemon.Name).Returns(new Faker().Lorem.Word());
+            A.CallTo(() => pokemon.Description).Returns(new Faker().Lorem.Text());
+            A.CallTo(() => pokemon.Habitat).Returns(new Faker().Lorem.Word());
+            A.CallTo(() => pokemon.IsLegendary).Returns(new Faker().Random.Bool());
 
             return pokemon;
         }

@@ -1,3 +1,4 @@
+using Bogus;
 using FakeItEasy;
 using FluentAssertions;
 using NUnit.Framework;
@@ -24,8 +25,8 @@ namespace PokemonApiTest.Data
         [TestCase("cave", true)]
         public void IfPokemonHabitatIsCaveOrItIsALegendaryPokemon_TranslatedDescription_ShouldApplyYodaTranslation(string habitat, bool isLegendary)
         {
-            const string description = "A Text";
-            const string expectedTranslation = "Expected translation";
+            var description = new Faker().Lorem.Sentence();
+            var expectedTranslation = new Faker().Lorem.Sentence();
             A.CallTo(() => _funTranslationsClient.TranslateToShakespeare(description)).Returns(new Result { Contents = new Contents { Translated = expectedTranslation } });
             _pokemon.Habitat = habitat;
             _pokemon.IsLegendary = isLegendary;
@@ -39,8 +40,8 @@ namespace PokemonApiTest.Data
         [Test]
         public void IfPokemonHabitatIsNotCaveAndItIsNotALegendaryPokemon_TranslatedDescription_ShouldApplyYodaTranslation()
         {
-            const string description = "A Text";
-            const string expectedTranslation = "Expected translation";
+            var description = new Faker().Lorem.Sentence();
+            var expectedTranslation = new Faker().Lorem.Sentence();
             A.CallTo(() => _funTranslationsClient.TranslateToYoda(description)).Returns(new Result { Contents = new Contents { Translated = expectedTranslation } });
             _pokemon.Habitat = "forest";
             _pokemon.IsLegendary = false;

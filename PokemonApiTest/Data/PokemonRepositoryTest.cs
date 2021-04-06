@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Bogus;
 using FakeItEasy;
 using FluentAssertions;
 using NUnit.Framework;
@@ -53,8 +54,8 @@ namespace PokemonApiTest.Data
         [Test]
         public void Get_ShouldSetIt()
         {
-            const string pokemonName = "mewtwo";
-            const string expectedPokemonName = "pikachu";
+            var pokemonName = new Faker().Lorem.Word();
+            var expectedPokemonName = new Faker().Lorem.Word();
             A.CallTo(() => _pokeApiClient.GetPokemonSpecies(pokemonName)).Returns(new PokemonInfo
             {
                 Name = expectedPokemonName
@@ -72,7 +73,7 @@ namespace PokemonApiTest.Data
         [Test]
         public void Get_ShouldSetIt([Values] bool expectedIsLegendary)
         {
-            const string pokemonName = "mewtwo";
+            var pokemonName = new Faker().Lorem.Word();
             A.CallTo(() => _pokeApiClient.GetPokemonSpecies(pokemonName)).Returns(new PokemonInfo
             {
                 IsLegendary = expectedIsLegendary
@@ -90,7 +91,7 @@ namespace PokemonApiTest.Data
         [Test]
         public void IfNoHabitatIsReturnedByTheClient_Get_ShouldSetNull()
         {
-            const string pokemonName = "mewtwo";
+            var pokemonName = new Faker().Lorem.Word();
             A.CallTo(() => _pokeApiClient.GetPokemonSpecies(pokemonName)).Returns(new PokemonInfo
             {
                 Habitat = null
@@ -104,8 +105,8 @@ namespace PokemonApiTest.Data
         [Test]
         public void IfHabitatIsReturnedByTheClient_Get_ShouldSetIt()
         {
-            const string pokemonName = "mewtwo";
-            const string expectedHabitat = "forest";
+            var pokemonName = new Faker().Lorem.Word();
+            var expectedHabitat = new Faker().Lorem.Word();
             A.CallTo(() => _pokeApiClient.GetPokemonSpecies(pokemonName)).Returns(new PokemonInfo
             {
                 Habitat = new Habitat
@@ -126,7 +127,7 @@ namespace PokemonApiTest.Data
         [Test]
         public void IfFlavorTextEntriesIsNull_Get_ShouldSetNull()
         {
-            const string pokemonName = "mewtwo";
+            var pokemonName = new Faker().Lorem.Word();
             A.CallTo(() => _pokeApiClient.GetPokemonSpecies(pokemonName)).Returns(new PokemonInfo
             {
                 FlavorTextEntries = null
@@ -140,7 +141,7 @@ namespace PokemonApiTest.Data
         [Test]
         public void IfFlavorTextEntriesIsEmpty_Get_ShouldSetNull()
         {
-            const string pokemonName = "mewtwo";
+            var pokemonName = new Faker().Lorem.Word();
             A.CallTo(() => _pokeApiClient.GetPokemonSpecies(pokemonName)).Returns(new PokemonInfo
             {
                 FlavorTextEntries = new List<FlavorTextEntry>()
@@ -154,7 +155,7 @@ namespace PokemonApiTest.Data
         [Test]
         public void IfFlavorTextContainsOnlyNonEnglishEntries_Get_ShouldSetNull()
         {
-            const string pokemonName = "mewtwo";
+            var pokemonName = new Faker().Lorem.Word();
             A.CallTo(() => _pokeApiClient.GetPokemonSpecies(pokemonName)).Returns(new PokemonInfo
             {
                 FlavorTextEntries = new List<FlavorTextEntry>
@@ -172,8 +173,8 @@ namespace PokemonApiTest.Data
         [Test]
         public void IfFlavorTextContainsAtLeastAnEnglishEntries_Get_ShouldSetItToTheFirstEnglishFlavorText()
         {
-            const string pokemonName = "mewtwo";
-            const string expectedDescription = "a description";
+            var pokemonName = new Faker().Lorem.Word(); 
+            var expectedDescription = new Faker().Lorem.Sentence();
             A.CallTo(() => _pokeApiClient.GetPokemonSpecies(pokemonName)).Returns(new PokemonInfo
             {
                 FlavorTextEntries = new List<FlavorTextEntry>
